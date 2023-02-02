@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import CardEditor from "./CardEditor";
 
-function App() {
+const App = (props) => {
+
+  const [cards, setCards] = useState([
+    {front: "door", back: "something you can open"},
+    {front: "dali cto", back: "pape"}
+  ])
+
+  const addCard = (card) => {
+    const newCards = cards.slice().concat(card)
+    setCards(newCards)
+  }
+
+  const deleteCard = (index) => {
+    const newCards = cards.slice();
+    newCards.splice(index, 1)
+    setCards(newCards)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CardEditor cards={cards} addCard={addCard} deleteCard={deleteCard}/>
   );
 }
 
